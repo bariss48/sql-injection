@@ -14,6 +14,7 @@ Ana nedeni, uygulamaların SQL sorgularını doğru şekilde yürütmemesi ve g�
 
 #####
 Log analiz: Uygulamanın kayıtlarını inceleyerek, uygulamanın geçmişte hangi SQL sorgularını yürüttüğünü ve hangi hata mesajlarını döndürdüğünü kontrol edebilirsiniz.
+
 Network monitoring: Uygulamanın veritabanına gönderdiği sorguları ve cevabları izleyerek, uygulamanın potansiyel SQL injection açıklarını tespit etmeye çalışılır.
 #####
 

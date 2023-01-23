@@ -31,3 +31,10 @@ Güncel güvenlik yamalarının kullanılması: Kullanılan veritabanı ve uygul
 
 Güvenli veri yönetimi: Veritabanındaki verilerin şifrelenmesi, yedeklenmesi ve silinmesi gibi işlemler güvenli bir şekilde yapılmalıdır.
 #####
+
+
+## Java Kodunun Açıklanması
+
+#####
+Java'da PreparedStatement sınıfı, SQL sorgularının parametrik hale getirilmesini sağlar. Bu sayede, sorgularda kullanılacak değerler önceden hazırlanır ve sorgunun parçası olarak gönderilir. Bu, SQL injection saldırılarına karşı koruma sağlar çünkü sorgulara kullanıcı tarafından girilen veriler doğrudan eklenmemektedir. Yani zararlı kod SQL sorgusuna bütün olarak eklenemez ve bu şekilde sql koumutu zararlı kodu execute() edemez. etse bile SQL o zararlı kodu bütün bir şekilde okumayacağı için sadece aratılan sorguyu bulamamış olur.
+#####

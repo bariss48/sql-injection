@@ -16,12 +16,15 @@ public class LoginServlet extends HttpServlet {
             Class.forName("com.mysql.jdbc.Driver");
             Connection con = DriverManager.getConnection(
                     "jdbc:mysql://localhost:3306/dbname", "root", "password");
- 
-            PreparedStatement ps = con.prepareStatement("select * from users where 
-username=? and password=?");
+
+
+            // ? ile sorgunun sadece istenilen kısmına kullanıcıdan gelen stringi vermek istediğimizi söylüyoruz.
+            PreparedStatement ps = con.prepareStatement("select * from users where username=? and password=?");
+            // Buarada ise kullanıcıdan gelen değerleri (parametreden) , sorgudaki ? yerler ile replace ediyoruz .
             ps.setString(1, username);
             ps.setString(2, password);
- 
+
+            //Buarada ise sql sorgu işlemini yapıyoruz eğer kullanıcı varsa if bloğunun ilk kısmı execute() ediliyor yok ise else kısmı
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 out.print("Welcome, " + username);

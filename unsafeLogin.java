@@ -8,7 +8,7 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        
+
         // Kullanıcıdan alınan girdiler 
         String username = request.getParameter("username");
         String password = request.getParameter("password");
@@ -19,16 +19,16 @@ public class LoginServlet extends HttpServlet {
             Connection con = DriverManager.getConnection(
                     "jdbc:mysql://localhost:3306/dbname", "root", "password");
 
+            // Kullanıcıdan gelen veriyi doğrudan sorguya kattığımız için manipüle edilebilir hale gelmiş oluyor bu sebepten buarada sql injection saldırısı yapılabilir. password = ' OR 1=1 ' 
+            // Querydeki 'users' , kullanıcıların verilerinin tutulduğu sql tablosunun ismi
+            String query = "SELECT * FROM users WHERE username='" + username + "' and password = '" + password + "'";
 
-            // ? ile sorgunun sadece istenilen kısmına kullanıcıdan gelen stringi vermek istediğimizi söylüyoruz. 
-            // Veritabanına sorgu atan String'deki 'users' , kullanıcıların verilerinin tutulduğu sql tablosunun ismi
-            PreparedStatement ps = con.prepareStatement("SELECT * FROM users WHERE username=? and password=?");
-            // Buarada ise kullanıcıdan gelen değerleri (parametreden) , sorgudaki ? yerler ile replace ediyoruz .
-            ps.setString(1, username);
-            ps.setString(2, password);
+            Statement stmt = null;
+            stmt = con.createStatement();
 
-            //Buarada ise sql sorgu işlemini yapıyoruz eğer kullanıcı varsa if bloğunun ilk kısmı execute() ediliyor yok ise else kısmı
-            ResultSet rs = ps.executeQuery();
+            // kullanıcıdan gelen verilerle oluşturulan sorguyu doğrudan veritabanına attığımız yer
+            ResultSet rs = stmt.executeQuery(query);
+
             if (rs.next()) {
                 out.print("Welcome, " + username);
                 HttpSession session = request.getSession();
